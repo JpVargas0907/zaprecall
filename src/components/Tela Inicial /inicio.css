@@ -1,0 +1,25 @@
+.tela-inicial {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-tela-inicial {
+    margin-bottom: 13px;
+}
+
+.button-recall {
+    width: 250px;
+    height: 54px;
+    background: #FFFFFF;
+    border: 1px solid #D70900;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
+    border-radius: 5px;
+    cursor: pointer;
+    
+    font-size: 18px;
+    color: #D70900;
+}
