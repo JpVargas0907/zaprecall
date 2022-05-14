@@ -1,14 +1,18 @@
 import React from 'react'
 import '../../assets/styles/styles.css';
 import '../../assets/styles/reset.css';
-import Inicio from '../Tela Inicial /Inicio';
-import Cards from '../Tela Cards/Cards';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Game from '../Tela Cards/Cards';
+import Dash from '../Tela Inicial /Inicio';
 
 export default function App(){
+
     return (
-        <>
-            <Inicio />
-            <Cards />
-        </>
+        <BrowserRouter>
+            <Routes>
+                <Route path="/" element={<Dash />}/>
+                <Route path="/game" element={ <Game />}/>
+            </Routes>
+        </BrowserRouter>
     );
 }
