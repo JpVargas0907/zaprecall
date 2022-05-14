@@ -82,6 +82,7 @@ function Card(props) {
     let [classeCard, setClasseCard] = React.useState("card");
     let [classeCardPergunta, setClasseCardPergunta] = React.useState("none");
     let [classeCardResposta, setClasseCardResposta] = React.useState("none");
+    let [ionName, setIonName] = React.useState(<ion-icon onClick={showQuestion} name="play-outline"></ion-icon>);
     
     function showQuestion(){
         setClasseCard("none");
@@ -93,13 +94,31 @@ function Card(props) {
         setClasseCardResposta("card-resposta");
     }
 
+    function userZapAnswer(){
+        setClasseCard("card-zap");
+        setClasseCardResposta("none");
+        setIonName(<ion-icon name="checkmark-circle-outline"></ion-icon>)
+    }
+
+    function userLateAnswer(){
+        setClasseCard("card-late");
+        setClasseCardResposta("none");
+        setIonName(<ion-icon name="help-circle-outline"></ion-icon>)
+    }
+
+    function userWrongAnswer(){
+        setClasseCard("card-wrong");
+        setClasseCardResposta("none");
+        setIonName(<ion-icon name="close-circle-outline"></ion-icon>)
+    }
+
     return (
         <div>
             <div className={classeCard}>
                 <p>
                     Pergunta {props.id}
                 </p>
-                <ion-icon onClick={showQuestion} name="play-outline"></ion-icon>
+                {ionName}
             </div>
             <div className={classeCardPergunta}>
                 <p className='pergunta'>{props.pergunta}</p>
@@ -108,13 +127,13 @@ function Card(props) {
             <div className={classeCardResposta}>
                 <p className='resposta'>{props.resposta}</p>
                 <div className='buttons'>
-                    <div className='errou'>
+                    <div onClick={userWrongAnswer} className='errou'>
                         <p>Não lembrei</p>
                     </div>
-                    <div className='quase-errou'>
+                    <div onClick={userLateAnswer} className='quase-errou'>
                         <p>Quase não lembrei</p>
                     </div>
-                    <div className='acertou'>
+                    <div onClick={userZapAnswer} className='acertou'>
                         <p>Zap!</p>
                     </div>
                 </div>
