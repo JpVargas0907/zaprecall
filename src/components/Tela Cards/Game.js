@@ -49,9 +49,12 @@ export default function Game() {
         },
     ];
 
-    const copyFlashCards = [...flashCards];
-    embaralhar();
-
+    const  copyFlashCards = [...flashCards];
+    useEffect(() => {
+        embaralhar();
+    }, []);
+    
+ 
     function comparador() {
         return Math.random() - 0.5;
     }
