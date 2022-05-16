@@ -1,45 +1,51 @@
 import logoPequena from '../../assets/_imgs/logo.png'
 import setinha from '../../assets/_imgs/setinha.png'
+import party from '../../assets/_imgs/party.png'
+import sad from '../../assets/_imgs/sad.png'
 import './cards.css'
 import React, { useState } from 'react'
+import { useEffect } from 'react/cjs/react.development'
 
 
 export default function Game() {
     let [contador, setContador] = React.useState(0);
+    let [ionFooter, setIonFooter] = React.useState([]);
+
+    console.log(ionFooter);
 
     const flashCards = [
         {
-            pergunta: 'O que é JSX 18?',
-            resposta: 'Um JSX é uma sintaxe que permir com que eu escreva HTML no meu javascript'
-        },
-        {
-            pergunta: 'O que é JSX 20?',
-            resposta: 'Um JSX é uma sintaxe que permir com que eu escreva HTML no meu javascript'
-        },
-        {
-            pergunta: 'O que é JSX 30?',
-            resposta: 'Um JSX é uma sintaxe que permir com que eu escreva HTML no meu javascript'
-        },
-        {
             pergunta: 'O que é JSX?',
             resposta: 'Um JSX é uma sintaxe que permir com que eu escreva HTML no meu javascript'
+        },
+        {
+            pergunta: 'O React é __',
+            resposta: 'uma biblioteca JavaScript para construção de interfaces'
+        },
+        {
+            pergunta: 'Componentes devem iniciar com __',
+            resposta: 'letra maiúscula'
+        },
+        {
+            pergunta: 'Podemos colocar __ dentro do JSX',
+            resposta: 'expressões'
         },
         {
 
-            pergunta: 'O que é JSX?',
-            resposta: 'Um JSX é uma sintaxe que permir com que eu escreva HTML no meu javascript'
+            pergunta: ' O ReactDOM nos ajuda __',
+            resposta: 'interagindo com a DOM para colocar componentes React na mesma'
         },
         {
-            pergunta: 'O que é JSX?',
-            resposta: 'Um JSX é uma sintaxe que permir com que eu escreva HTML no meu javascript'
+            pergunta: 'Usamos o npm para __',
+            resposta: 'gerenciar os pacotes necessários e suas dependências'
         },
         {
-            pergunta: 'O que é JSX?',
-            resposta: 'Um JSX é uma sintaxe que permir com que eu escreva HTML no meu javascript'
+            pergunta: 'Usamos props para __?',
+            resposta: ' passar diferentes informações para componentes '
         },
         {
-            pergunta: 'O que é JSX?',
-            resposta: 'Um JSX é uma sintaxe que permir com que eu escreva HTML no meu javascript'
+            pergunta: 'Usamos estado (state) para __',
+            resposta: 'dizer para o React quais informações quando atualizadas devem renderizar a tela novamente'
         },
     ];
 
@@ -52,7 +58,6 @@ export default function Game() {
 
     function embaralhar() {
         copyFlashCards.sort(comparador);
-        console.log(copyFlashCards);
     }
 
     return (
@@ -60,10 +65,10 @@ export default function Game() {
             <Logo />
             <div className='deck-cards'>
                 {copyFlashCards.map(
-                    (card, index) => <Card key={index} id={index + 1} pergunta={card.pergunta} resposta={card.resposta} contador={contador} setContador={setContador} />
+                    (card, index) => <Card key={index} id={index + 1} pergunta={card.pergunta} resposta={card.resposta} contador={contador} setContador={setContador} setIonFooter={setIonFooter} ionFooter={ionFooter} />
                 )}
             </div>
-            <Footer contador={contador} />
+            <Footer contador={contador} ionFooter={ionFooter} />
         </div>
     );
 }
@@ -98,6 +103,7 @@ function Card(props) {
         setClasseCardResposta("none");
         setIonName("checkmark-circle-outline");
         props.setContador(props.contador + 1);
+        props.setIonFooter([...props.ionFooter, "checkmark-circle-outline"]);
     }
 
     function userLateAnswer() {
@@ -105,6 +111,7 @@ function Card(props) {
         setClasseCardResposta("none");
         setIonName("help-circle-outline");
         props.setContador(props.contador + 1);
+        props.setIonFooter([...props.ionFooter, "help-circle-outline"]);
     }
 
     function userWrongAnswer() {
@@ -112,6 +119,7 @@ function Card(props) {
         setClasseCardResposta("none");
         setIonName("close-circle-outline");
         props.setContador(props.contador + 1);
+        props.setIonFooter([...props.ionFooter, "close-circle-outline"]);
     }
 
     return (
@@ -145,10 +153,56 @@ function Card(props) {
 }
 
 function Footer(props) {
+    let [classeTexto, setClasseTexto] = React.useState("none");
+    let [texto, setTexto] = React.useState("");
+    let [img, setImg] = React.useState("");
+    let [titulo, setTitulo] = React.useState("");
+
+    console.log(props.ionFooter)
+    console.log(props.ionFooter.length)
+
+    function verificarResposta() {
+        for(let i = 0; i < props.ionFooter.length; i++){
+            if(props.ionFooter[i] === "close-circle-outline"){
+                console.log('retornou falso')
+                return false;
+            }
+        }
+        console.log('retornou verdadeiro')
+        return true;
+        
+    }
+
+    function verificarMensagem(){
+        if (props.contador === 8 && verificarResposta() === true) {
+            setImg(party);
+            setTitulo("Parabéns!");
+            setTexto("Você não esqueceu de nenhum flashcard!");
+            setClasseTexto("texto");
+        } else if (props.contador === 8 && verificarResposta() === false) {
+            setImg(sad);
+            setTitulo("Putz...");
+            setTexto("Ainda faltam alguns...Mas não desanime!");
+            setClasseTexto("texto");
+        }
+    }
+
+    useEffect(() => {
+        verificarMensagem();
+    }, [props.contador]);
+
     return (
         <footer>
+            <div className={classeTexto}>
+                <div className='titulo'>
+                    <img src={img} />
+                    <p>{titulo}</p>
+                </div>
+                <p className='texto'>{texto}</p>
+            </div>
             <p>{props.contador}/8 CONCLUÍDOS</p>
             <div className='icons'>
+                {props.ionFooter.map((ionName, index) => <ion-icon key={index} name={ionName}></ion-icon>)}
             </div>
         </footer>
     );
