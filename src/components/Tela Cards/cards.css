@@ -254,32 +254,25 @@ footer>p {
     line-height: 22px;
 }
 
-footer ion-icon[name="checkmark-circle-outline"] {
-    background-color: #2FBE34;
+footer ion-icon{
     color: #FFFFFF;
     border-radius: 50%;
     margin-right: 5px;
     width: 22px;
     height: 22px;
+    margin-top: 5px;
+}
+
+footer ion-icon[name="checkmark-circle-outline"] {
+    background-color: #2FBE34;
 }
 
 footer ion-icon[name="help-circle-outline"] {
     background-color: #FF922E;
-    color: #FFFFFF;
-    border-radius: 50%;
-    margin-right: 5px;
-    width: 22px;
-    height: 22px;
 }
 
 footer ion-icon[name="close-circle-outline"] {
     background-color: #FF3030;
-    color: #FFFFFF;
-    border-radius: 50%;
-    margin-right: 5px;
-    width: 22px;
-    height: 22px;
-    margin-top: 10px;
 }
 
 footer .texto {
@@ -308,6 +301,18 @@ footer .texto .texto {
     word-wrap: break-word;
 }
 
-footer .texto .titulo > img{
+footer .texto .titulo>img {
     margin-right: 5px;
+}
+
+.reiniciar-recall {
+    width: 170px;
+    height: 34px;
+    background: #FB6B6B;
+    border-radius: 5px;
+    border: 0px;
+    color: #FFFFFF;
+    font-size: 14px;
+    font-weight: 400;
+    margin-top: 20px;
 }

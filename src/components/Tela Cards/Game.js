@@ -5,7 +5,7 @@ import sad from '../../assets/_imgs/sad.png'
 import './cards.css'
 import React, { useState } from 'react'
 import { useEffect } from 'react/cjs/react.development'
-
+import { Link } from 'react-router-dom'
 
 export default function Game() {
     let [contador, setContador] = React.useState(0);
@@ -154,6 +154,7 @@ function Card(props) {
 
 function Footer(props) {
     let [classeTexto, setClasseTexto] = React.useState("none");
+    let [classeBotao, setClasseBotao] = React.useState("none");
     let [texto, setTexto] = React.useState("");
     let [img, setImg] = React.useState("");
     let [titulo, setTitulo] = React.useState("");
@@ -162,28 +163,30 @@ function Footer(props) {
     console.log(props.ionFooter.length)
 
     function verificarResposta() {
-        for(let i = 0; i < props.ionFooter.length; i++){
-            if(props.ionFooter[i] === "close-circle-outline"){
+        for (let i = 0; i < props.ionFooter.length; i++) {
+            if (props.ionFooter[i] === "close-circle-outline") {
                 console.log('retornou falso')
                 return false;
             }
         }
         console.log('retornou verdadeiro')
         return true;
-        
+
     }
 
-    function verificarMensagem(){
+    function verificarMensagem() {
         if (props.contador === 8 && verificarResposta() === true) {
             setImg(party);
             setTitulo("Parabéns!");
             setTexto("Você não esqueceu de nenhum flashcard!");
             setClasseTexto("texto");
+            setClasseBotao("reiniciar-recall");
         } else if (props.contador === 8 && verificarResposta() === false) {
             setImg(sad);
             setTitulo("Putz...");
             setTexto("Ainda faltam alguns...Mas não desanime!");
             setClasseTexto("texto");
+            setClasseBotao("reiniciar-recall");
         }
     }
 
@@ -204,6 +207,10 @@ function Footer(props) {
             <div className='icons'>
                 {props.ionFooter.map((ionName, index) => <ion-icon key={index} name={ionName}></ion-icon>)}
             </div>
+
+            <Link to="/">
+                <button className={classeBotao}>REINICIAR RECALL</button>
+            </Link>
         </footer>
     );
 }
