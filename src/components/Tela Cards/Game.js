@@ -11,8 +11,6 @@ export default function Game() {
     let [contador, setContador] = React.useState(0);
     let [ionFooter, setIonFooter] = React.useState([]);
 
-    console.log(ionFooter);
-
     const flashCards = [
         {
             pergunta: 'O que é JSX?',
@@ -162,17 +160,12 @@ function Footer(props) {
     let [img, setImg] = React.useState("");
     let [titulo, setTitulo] = React.useState("");
 
-    console.log(props.ionFooter)
-    console.log(props.ionFooter.length)
-
     function verificarResposta() {
         for (let i = 0; i < props.ionFooter.length; i++) {
             if (props.ionFooter[i] === "close-circle-outline") {
-                console.log('retornou falso')
                 return false;
             }
         }
-        console.log('retornou verdadeiro')
         return true;
 
     }
